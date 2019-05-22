@@ -1,5 +1,6 @@
 package no.kristiania.springreact.ppmtool.services;
 
+import no.kristiania.springreact.ppmtool.domain.Backlog;
 import no.kristiania.springreact.ppmtool.domain.Project;
 import no.kristiania.springreact.ppmtool.exceptions.ProjectIdException;
 import no.kristiania.springreact.ppmtool.repositories.ProjectRepository;
@@ -16,6 +17,14 @@ public class ProjectService {
 
         try{
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+
+            if(project.getId()==null){
+                Backlog backlog = new Backlog();
+                project.setBacklog(backlog);
+                backlog.setProject(project);
+                backlog.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+            }
+
             return projectRepository.save(project);
         }catch (Exception e){
             throw new ProjectIdException("Project ID '" + project.getProjectIdentifier().toUpperCase() + "' already exists");
