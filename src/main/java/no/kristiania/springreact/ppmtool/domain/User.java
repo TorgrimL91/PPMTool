@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private String password;
 
     @Transient
-    private String confrimPassword;
+    private String confirmPassword;
 
     private Date createdAt;
 
@@ -82,12 +82,12 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getConfrimPassword() {
-        return confrimPassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setConfrimPassword(String confrimPassword) {
-        this.confrimPassword = confrimPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public Date getCreatedAt() {

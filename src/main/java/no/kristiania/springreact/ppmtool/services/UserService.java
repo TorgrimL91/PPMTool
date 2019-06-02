@@ -1,6 +1,7 @@
 package no.kristiania.springreact.ppmtool.services;
 
 import no.kristiania.springreact.ppmtool.domain.User;
+import no.kristiania.springreact.ppmtool.exceptions.UsernameAlreadyExistsException;
 import no.kristiania.springreact.ppmtool.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,10 +17,19 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User saveUser(User newUser){
-        newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+
+        try{
+            newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+            newUser.setUsername(newUser.getUsername());
+
+            newUser.setConfirmPassword("");
 
 
+            return userRepository.save(newUser);
 
-        return userRepository.save(newUser);
+        }catch (Exception e){
+            throw new UsernameAlreadyExistsException("Username '" + newUser.getUsername() + "' already exists");
+        }
+
     }
 }
