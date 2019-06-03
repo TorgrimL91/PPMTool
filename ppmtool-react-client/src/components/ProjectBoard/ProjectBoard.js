@@ -4,7 +4,6 @@ import Backlog from "./Backlog";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getBacklog } from "../../actions/BacklogActions";
-import ErrorWithStack from "jest-util/build/ErrorWithStack";
 
 class ProjectBoard extends Component {
   constructor() {
@@ -38,6 +37,12 @@ class ProjectBoard extends Component {
           return (
             <div className="alert alert-danger text-center" role="alert">
               {errors.projectNotFound}
+            </div>
+          );
+        } else if (errors.projectIdentifier) {
+          return (
+            <div className="alert alert-danger text-center" role="alert">
+              {errors.projectIdentifier}
             </div>
           );
         } else {
